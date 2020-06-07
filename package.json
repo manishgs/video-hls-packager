@@ -1,0 +1,7 @@
+{
+  "name": "drm-video-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Manish Gopal Singh <manish.singh707@gmail.com>",
+  "license": "MIT"
+}

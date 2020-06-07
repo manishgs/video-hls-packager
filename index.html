@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <link href="https://vjs.zencdn.net/7.8.2/video-js.css" rel="stylesheet" />
+</head>
+
+<body>
+    <video id="video-player" width="960" height="540" class="video-js vjs-default-skin" controls></video>
+
+    <script src="https://vjs.zencdn.net/7.8.2/video.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@2.0.9/dist/videojs-contrib-quality-levels.min.js"> </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/videojs-hls-source-selector@1.0.1/dist/videojs-http-source-selector.min.js"></script>
+    <script>
+        const url = 'http://127.0.0.1:5500/media/sample/master.m3u8';
+        function play({ src, type }) {
+            var player = videojs('video-player', {
+                responsive: true,
+                liveui: true,
+                playbackRates: [.5, .75, 1, 1.25, 1.5, 1.75, 2], html5: {
+                    nativeControlsForTouch: false,
+                    nativeTextTracks: false,
+                    nativeAudioTracks: false,
+                    nativeVideoTracks: false,
+                    preloadTextTracks: false,
+                    hls: {
+                        overrideNative: true,
+                        withCredentials: false
+                    }
+                }
+
+            });
+
+            player.ready(function () {
+                this.src({ src, type })
+                this.play();
+            });
+
+            player.httpSourceSelector();
+
+            let qualityLevels = player.qualityLevels();
+            // Listen to change events for when the player selects a new quality level
+            qualityLevels.on('change', function () {
+                console.log('Quality Level changed!');
+                console.log('New level:', qualityLevels[qualityLevels.selectedIndex]);
+            });
+        }
+
+        play({ src: url, type: 'application/x-mpegURL' })
+
+    </script>
+</body>
+
+</html>

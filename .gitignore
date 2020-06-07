@@ -1,0 +1,4 @@
+media/*
+storage/*
+node_modules
+yarn.lock
