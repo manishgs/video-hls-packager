@@ -1,5 +1,5 @@
 # Dependencies
-- Shaka packager https://google.github.io/shaka-packager
+- Shaka packager https://google.github.io/shaka-packager/html/
 
 ```
 curl -O https://github.com/google/shaka-packager/releases/download/v2.4.2/packager-linux

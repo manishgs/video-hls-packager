@@ -40,8 +40,7 @@ const encodingByffmpeg = (inputPath, outputPath, size) => {
 const packageVideo = (dir) => {
     const command =
         `packager \
-        'in=${dir}/360.mp4,stream=audio,segment_template=${dir}/audio/$Number$.aac,playlist_name=${dir}/audio/main.m3u8,hls_group_id=audio,hls_name=ENGLISH' \
-        'in=${dir}/360.mp4,stream=video,segment_template=${dir}/360/$Number$.ts,playlist_name=${dir}/360/main.m3u8,iframe_playlist_name=${dir}/360/iframe.m3u8' \
+        'in=${dir}/480.mp4,stream=audio,segment_template=${dir}/audio/$Number$.aac,playlist_name=${dir}/audio/main.m3u8,hls_group_id=audio,hls_name=ENGLISH' \
         'in=${dir}/480.mp4,stream=video,segment_template=${dir}/480/$Number$.ts,playlist_name=${dir}/480/main.m3u8,iframe_playlist_name=${dir}/480/iframe.m3u8' \
         'in=${dir}/720.mp4,stream=video,segment_template=${dir}/720/$Number$.ts,playlist_name=${dir}/720/main.m3u8,iframe_playlist_name=${dir}/720/iframe.m3u8' \
         'in=${dir}/1080.mp4,stream=video,segment_template=${dir}/1080/$Number$.ts,playlist_name=${dir}/1080/main.m3u8,iframe_playlist_name=${dir}/1080/iframe.m3u8' \
@@ -56,7 +55,8 @@ const createFolder = (path) => {
     }
 }
 const generateThumbnail = (path, outputPath) => {
-    runCommand(`ffmpeg -i ${path} -vf fps=1/60 ${outputPath}/thumb/%02d.jpg`);
+    createFolder(`${outputPath}/thumb`);
+    return runCommand(`ffmpeg -i ${path} -vframes 1 ${outputPath}/thumb/%02d.jpg`);
 }
 
 const generateSegment = async (file) => {
@@ -66,18 +66,13 @@ const generateSegment = async (file) => {
     // path to save encoded file
     const encodedPath = mediaPath(folder);
     createFolder(encodedPath);
-    generateThumbnail(storagePath(file), encodedPath);
-
-    // encode file
-    /*   await Promise.all[
-          encodingByffmpeg(storagePath(file), encodedPath, 360),
-          encodingByffmpeg(storagePath(file), encodedPath, 480),
-          encodingByffmpeg(storagePath(file), encodedPath, 720),
-          encodingByffmpeg(storagePath(file), encodedPath, 1080)
-      ]; */
-
-    // package video
-    await packageVideo(encodedPath);
+    await generateThumbnail(storagePath(file), encodedPath);
+    /*  // encode file
+     await encodingByffmpeg(storagePath(file), encodedPath, 480)
+     await encodingByffmpeg(storagePath(file), encodedPath, 720);
+     await encodingByffmpeg(storagePath(file), encodedPath, 1080);
+     // package video
+     await packageVideo(encodedPath); */
 }
 
 
@@ -86,4 +81,4 @@ const main = async (file) => {
 }
 
 
-main('sample.mp4');
+main('login.mp4');
