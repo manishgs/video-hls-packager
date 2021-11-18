@@ -5,8 +5,8 @@
 </head>
 
 <body>
-    <video poster="https://referral-ai.s3.us-east-2.amazonaws.com/video/login/thumb/01.jpg" id="video-player"
-        width="960" height="540" class="video-js vjs-default-skin" controls></video>
+    <video poster="media/login/thumb/01.jpg" id="video-player" width="960" height="540"
+        class="video-js vjs-default-skin" controls></video>
 
     <script src="https://vjs.zencdn.net/7.8.2/video.js"></script>
     <script
@@ -15,7 +15,7 @@
         src="https://cdn.jsdelivr.net/npm/videojs-hls-source-selector@1.0.1/dist/videojs-http-source-selector.min.js"></script>
 
     <script>
-        const url = 'https://referral-ai.s3.us-east-2.amazonaws.com/video/login/master.m3u8';
+        const url = 'media/login/master.m3u8';
         function play({ src, type }) {
             const player = videojs('video-player', {
                 responsive: true,
@@ -32,7 +32,7 @@
                     }
                 },
                 httpSourceSelector: {
-                    default: 720
+                    default: 'auto'
                 }
             });
             player.httpSourceSelector();

@@ -67,12 +67,12 @@ const generateSegment = async (file) => {
     const encodedPath = mediaPath(folder);
     createFolder(encodedPath);
     await generateThumbnail(storagePath(file), encodedPath);
-    /*  // encode file
-     await encodingByffmpeg(storagePath(file), encodedPath, 480)
-     await encodingByffmpeg(storagePath(file), encodedPath, 720);
-     await encodingByffmpeg(storagePath(file), encodedPath, 1080);
-     // package video
-     await packageVideo(encodedPath); */
+    // encode file
+    await encodingByffmpeg(storagePath(file), encodedPath, 480)
+    await encodingByffmpeg(storagePath(file), encodedPath, 720);
+    await encodingByffmpeg(storagePath(file), encodedPath, 1080);
+    // package video
+    await packageVideo(encodedPath);
 }
 
 
@@ -81,4 +81,4 @@ const main = async (file) => {
 }
 
 
-main('login.mp4');
+main('onboarding.mp4');
