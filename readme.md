@@ -2,7 +2,7 @@
 - Shaka packager https://google.github.io/shaka-packager/html/
 
 ```
-curl -O https://github.com/google/shaka-packager/releases/download/v2.4.2/packager-linux
+curl -OL https://github.com/google/shaka-packager/releases/download/v2.4.2/packager-linux
 
 sudo install -m 755 ./packager-linux /usr/local/bin/packager
 ```
